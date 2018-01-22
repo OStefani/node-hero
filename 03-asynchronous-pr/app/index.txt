@@ -1,0 +1,5 @@
+fs.stat() retrieve information about the file pointed to by pathname. The callback gets two arguments (err, stats) where stats is an fs.Stats object.
+
+Using fs.stat() to check for the existence of a file before calling fs.open(), fs.readFile() or fs.writeFile() is not recommended. Instead, user code should open/read/write the file directly and handle the error raised if the file is not available.
+
+To check if a file exists without manipulating it afterwards, fs.access() is recommended.
