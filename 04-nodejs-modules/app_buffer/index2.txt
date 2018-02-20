@@ -1,0 +1,3 @@
+The process object is a global that provides information about, and control over, the current Node.js process. As a global, it is always available to Node.js applications without using require().
+The process.stdin property returns a stream connected to stdin (fd 0). It is a net.Socket (which is a Duplex stream) unless fd 0 refers to a file, in which case it is a Readable stream.
+The process.stdout property returns a stream connected to stdout (fd 1). It is a net.Socket (which is a Duplex stream) unless fd 1 refers to a file, in which case it is a Writable stream. It is used internally by console.log(), it can't be closed, it will not emmeit finish event.
