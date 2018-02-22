@@ -7,6 +7,7 @@ const requestHandler = (req, res) => {
     const path = url.parse(req.url, true);
     let searchForFile = './view' + path.pathname;
     console.log(searchForFile);
+    // The first argument of a handler function is an error
     fs.readFile(searchForFile, 'utf-8', (err, data) =>{
         if (err) {
             res.writeHead(404, {'Content-Type': 'text/html'});
