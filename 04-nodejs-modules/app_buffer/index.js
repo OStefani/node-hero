@@ -7,12 +7,15 @@ const requestHandler = (req, res) => {
     const path = url.parse(req.url, true);
     let searchForFile = './view' + path.pathname;
     console.log(searchForFile);
-    // The first argument of a handler function is an error
+    // The first argument of a handler callback function is an error
     fs.readFile(searchForFile, 'utf-8', (err, data) =>{
-        if (err) {
+        // If an arror occurred but wasn't caght the function will handle data as undefined.
+        // Hence the result will be undefined or '' 
+        if (err) { // (err) => {}
             res.writeHead(404, {'Content-Type': 'text/html'});
             return res.end("Not Found");
         }
+        // (null, data) => {}
         res.writeHead(200, {'Content-Type': 'text/html'});
         //console.log(req.url);
         //console.log(req.method);

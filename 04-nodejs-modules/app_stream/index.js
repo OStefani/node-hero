@@ -3,7 +3,7 @@ const fs = require('fs');
 const url = require('url');
 const port = 3000;
 
-const server = http.createServer(function(req, res) {
+const server = http.createServer((req, res) => {
     const query = url.parse(req.url, true);
     console.log(query.pathname);
     if (query.pathname === '/index.html') {

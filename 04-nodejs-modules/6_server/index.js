@@ -16,9 +16,13 @@ const emit = server.emit;
 //console.log(`emit ${emit}`);
 server.emit = function(event) {
     console.log(event); //listening, hello server, keepAliveTimeout 5000, connection, request, request, timeout
-    /**connection starts when a browser open a new net connection and request sends a request. Keep-alive is set in _http_server.js */
-    /**The apply() method calls a function with a given this value, and arguments provided as an array */
-    /**The difference is that apply lets you invoke the function with arguments as an array; call requires the parameters be listed explicitly. A useful mnemonic is "A for array and C for comma." */
+    /**connection starts when a browser open a new net connection 
+     * and request sends a request. Keep-alive is set in _http_server.js */
+    /**The apply() method calls a function with a given this value, and arguments 
+     * provided as an array */
+    /**The difference is that apply lets you invoke the function with arguments as 
+     * an array; call requires the parameters be listed explicitly. A useful mnemonic 
+     * is "A for array and C for comma." */
     emit.apply(this, arguments);
 }
 server.on('request', function (req, res) {
