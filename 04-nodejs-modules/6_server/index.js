@@ -1,6 +1,11 @@
+//Create a new object module and serve it without updating
+/**In the Node.js module system, each file is treated as a separate module */
 const http = require('http');
 const util = require('util');
 // Create an instance of the Server class
+/**
+ * Server is an event emmitter. It emmits 'request' event when an incoming request is occured
+ */
 const server = new http.Server();
 //console.log(`Server: ${util.inspect(server)}`);
 //console.log(`${server.eventNames()}`);

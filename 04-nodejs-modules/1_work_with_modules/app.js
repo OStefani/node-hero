@@ -11,7 +11,7 @@ function run() {
     console.log(phrases.getPhrase('Run successful'));
 }
 //In each module the 'module' variable is a reference to the object representing the current module
-//module.exports object is created by the module system
+//module.exports object is created by the module system. module.exports is a reference to the module.exports that is shorter to type. 
 if (module.parent) {
     module.exports.run = run;
     console.log('parent module');

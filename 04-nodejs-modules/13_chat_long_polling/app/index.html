@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Chat</title>
+</head>
+<body>
+    <p class="greet">Welcome in our chat</p>
+    <form  action="/">
+        <input type="text" name="message">
+        <input id="publish" type="button" value="Send">
+    </form>
+    <ul id="messages"></ul>
+</body>
+<script src="http://localhost:3000/client.js"></script>
+<!--<script>
+    const publish = document.getElementById('publish');
+    publish.addEventListener('click', () => {
+        const par = document.createElement('p');
+        const body = document.getElementsByTagName('body');
+        body[0].appendChild(par);
+        const message = document.getElementsByName('message');
+        console.log(message[0].value);
+        par.innerHTML = message[0].value;
+        message[0].value = '';
+});
+</script>-->
+</html>
