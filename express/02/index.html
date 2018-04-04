@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Chat</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <div id="chat_list">
+
+    </div>
+    <form action="" >
+        <input type="text" id="user_text">       
+        <button type="button" id="submit">
+                    Send
+        </button>
+    </form>
+    <!--2. The second part of Socket.io is a client library that loads on the browser side: socket.io-client-->
+    <!--6. Load the socket.io-client, which exposes a io global, and then connect.-->
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    // 7. io defaults to trying to connect to the host that serves the page.
+    // var socket = io();
+  var socket = io('http://localhost:3000');
+  socket.on('connect', function(){
+      var nickname = prompt("What is your nickname");
+      //call join to subscribe the socket to a given channel
+      socket.emit('join', nickname);
+  });
+  
+  socket.on('messages', function(data){
+      insertMessage(data);
+    });
+    function insertMessage(data) {
+        //console.log(data);
+        const chat_text = document.getElementById('chat_list');
+        const par = document.createElement('p');
+        par.className = 'list_of_messages';
+        par.innerHTML = data;
+        chat_text.appendChild(par);
+    }
+  socket.on('disconnect', function(){
+      console.log('Disconnected');
+  });
+</script>
+<script>
+    var chat_form = document.getElementById('submit');
+    // 8. when a user types in a message, emit the event 'messages' and the server gets it.
+    chat_form.addEventListener('click', () => {
+        var user_text = document.getElementById('user_text').value;
+        //console.log('user_text: ', user_text);
+        socket.emit('messages', user_text);
+    });
+</script>
+</body>
+</html>

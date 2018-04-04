@@ -1,0 +1,23 @@
+body {
+    margin: 0!important;
+    padding: 0;
+}
+form { 
+    background: #9b9b9b; 
+    padding: 1px; 
+    position: fixed; 
+    bottom: 0; 
+    width: 100vw; 
+}
+      form input { 
+        border: 0; 
+        padding: 2vh 0.3vw; 
+        width: 90vw; 
+     }
+      form button { 
+        width: 9vw; 
+        background: rgb(47, 172, 63); 
+        color: white;
+        border: none; 
+        padding: 2vh 0.3vw; 
+    }
