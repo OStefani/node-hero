@@ -3,6 +3,13 @@
  */
 const express = require('express');
 const app = express();
+/**
+ * creating an HTTP server yourself, instead of having Express create one for you is 
+ * useful if you want to reuse the HTTP server, for example to run socket.io within the
+ * same HTTP server instance.
+ * However, app.listen() also returns the HTTP(!not HTTPS!) server instance, so with a bit of
+ *rewriting *you can achieve something similar without creating an HTTP server yourself
+ */
 //3. Express initializes app to be a function handler that you can supply to an HTTP server
 const server = require('http').createServer(app);
 // 4. Initializing a new instance of socket io by passing a http object
