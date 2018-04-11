@@ -10,14 +10,14 @@ app.use(express.static('public'));
 
 const logger = require('./logger');
 app.use(logger);
-//forces the use of the native querystring node module
-//the returned value is a middleware function
-//const parsUrlEncoded = bodyParser.urlencoded({extended: false});
 
 const bodyParser = require('body-parser');
 //var parseURL = bodyParser.urlencoded({ extended: false });
 //app.use(bodyParser.urlencoded({ extended: false })); 
 app.use(bodyParser.json());
+//forces the use of the native querystring node module
+//the returned value is a middleware function
+//const parsUrlEncoded = bodyParser.urlencoded({extended: false});
 
 const blocks = {
     'Fixed': ' Fastened securely in position',
