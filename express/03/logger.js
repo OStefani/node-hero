@@ -7,6 +7,7 @@ module.exports = function(req, res, next) {
      * };
      */
     // another way to print in console
+    // It is used by console.log, cannot be closed, doesn't emmit 'finish'
     let stream = process.stdout;
     // url and method to build a logger message
     let url = req.url;

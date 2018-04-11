@@ -11,8 +11,9 @@ let requestListener = function(req, res) {
      * and 'response' event respectively. It may be used to access response 
      * status, headers and data. It inherits from streams.
     It implements the Readable Stream interface. */
-    console.log(req.method, req.url);
+    console.log(req);
     //to create an object using url.parse we should add true to the end
+    console.log('url parsed: ', url.parse(req.url, true));
     let urlParsed = url.parse(req.url, true);
     console.log(`url parsed ${util.inspect(urlParsed)}`);
     if (urlParsed.pathname === "/echo" && urlParsed.query.message === "hello") 
