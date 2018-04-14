@@ -1,21 +1,11 @@
 const express = require('express');
-const app = express();
-const config = require('./config/index');
-
-/**
- * Middleware functions are functions that have access to the request object (req), 
- * the response object (res), and the next middleware function in the application’s
- * request-response cycle. 
- */
-app.use(express.static('public'));
-
-const logger = require('./logger');
-app.use(logger);
+//returns a router instanse which can be mounted as a middleware
+const router = express.Router();
 
 const bodyParser = require('body-parser');
-//var parseURL = bodyParser.urlencoded({ extended: false });
-//app.use(bodyParser.urlencoded({ extended: false })); 
-app.use(bodyParser.json());
+//app.use(bodyParser.urlencoded({ extended: false }));
+const bodyParsed = bodyParser.json(); 
+//app.use(bodyParser.json());
 //forces the use of the native querystring node module
 //the returned value is a middleware function
 //const parsUrlEncoded = bodyParser.urlencoded({extended: false});
@@ -31,31 +21,15 @@ const locations = {
     'Rotating': 'Third floor',
 }
 /**
- * Add callback triggers to route parameters, where name is the name of the parameter or
- * an array of them, and callback is the callback function. The parameters of the
- * callback function are the request object, the response object, the next middleware,
- * the value of the parameter and the name of the parameter, in that order.
- */
-/**
- * Maps placeholders to callback functions. It is useful fot preconditions on dynamic routes.
- */
-app.param('name', (req, res, next) => {
-    const name = req.params.name;
-    console.log('name: ', name);
-    let block = name[0].toUpperCase() + name.slice(1).toLowerCase();
-    //can be accessed from other routes in the application
-    req.blockName = block;
-    next();
-});
-/**
  * Returns a rout object which handles all requests to the '/blocks' path
  */
-const blocksRout = app.route('/blocks');
+//const blocksRout = app.route('/blocks');
 //At this object we call get and post etc methods
-blocksRout.get((req, res) => {
+//blocksRout.get((req, res) => {
+    router.route('/', (req, res) => {
     res.json(Object.keys(blocks));
     // we can use chaining
-}).post((req, res) => {
+}).post(bodyParsed, (req, res) => {
     var block = req.body;
     console.log(block);
     blocks[block.name] = block.description;
@@ -63,7 +37,15 @@ blocksRout.get((req, res) => {
 });
 // /blocks:name creates name property on the request.params object
 //dinamic path
-app.route('/blocks/:name')
+router.route('/:name')
+    // For all requests
+    .all((req, res, next) => {
+        const name = req.params.name;
+        let block = name[0].toUpperCase() + name.slice(1).toLowerCase();
+        //can be accessed from other routes in the application
+        req.blockName = block;
+        next();
+    })
     .get((req, res) => {
         console.log('blocks: ', blocks); 
         let description = blocks[req.blockName];
@@ -75,18 +57,13 @@ app.route('/blocks/:name')
         return res.json(description);
         // or res.send(description);
         /** The send function converts  arays and objects into json format and strings will be send as is. */
-    })
-    .delete((req, res) => {
+    }).delete((req, res) => {
         let target = req.blockName;
-        if (!blocks) {
-            return res.status(404).json("No name found");
-        }
-        //console.log('blocks', blocks[name]);
         delete blocks[target];
-        //console.log('blocks', blocks);
+        console.log('blocks', blocks);
         res.json(target);
     });
-app.route('/locations/:name')
+router.route('/locations/:name')
     .get((req, res) => {
         let location = locations[req.blockName];
         if (!location) {
@@ -95,7 +72,7 @@ app.route('/locations/:name')
         return res.json(location);
     });
 
-
+module.exports = router;
 // routs can take multiple handlers as arguments and will call them sequentially
 /**app.post('/blocks', parsUrlEncoded, (req, res) => {
     //form submitted data can be accessedthrough req.body
@@ -104,11 +81,3 @@ app.route('/locations/:name')
     blocks[newBlock].newBlockName = newBlock.description;
     res.status(201).json(newBlock.name);
 });**/
-
-
-app.listen(config.get('port'), (err) => {
-    if (err) {
-        console.log(err);
-    }
-    console.log('Server running at http://localhost:3000');
-});
