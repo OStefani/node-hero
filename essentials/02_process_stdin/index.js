@@ -14,14 +14,14 @@ function ask(i) {
     process.stdout.write( '  >  '  );
 }
 process.stdin.on('data', function(data) {
-answers.push(data.toString().trim());
-if (answers.length < questions.length) {
-    ask(answers.length);
+    answers.push(data.toString().trim());
+    if (answers.length < questions.length) {
+        ask(answers.length);
 
-}
-else {
-    process.exit();
-}
+    }
+    else {
+        process.exit();
+    }
 });
 process.on('exit', () => {
     process.stdout.write('\n\n');
