@@ -1,14 +1,16 @@
 // to make a request to a sequire server
 const https = require('https');
 const fs = require('fs');
-
+// options can be an object, a string, or a URL object. If options is a string, it is 
+// automatically parsed with url.parse(). If it is a URL object, it will be automatically 
+// converted to an ordinary options object.
 options = {
     hostname: 'en.wikipedia.org',
     port: 443,
     path: '/wiki/George_Washington',
     method: 'GET'
 };
-
+//  allows one to transparently issue requests
 var req = https.request(options, (res) => {
     var resBody = '';
     console.log('Response from server started');
