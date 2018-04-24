@@ -4,7 +4,7 @@ module.exports = {
         return `${person.last}, ${person.first}`;
     },
     loadWiki(person, callback) {
-        var url = `https://en.wikipedia.org/wiki/${person.first}, ${person.last}`;
+        var url = `https://en.wikipedia.org/wiki/${person.first}_${person.last}`;
         https.get(url, function(res) {
             var body = '';
             res.setEncoding('UTF-8');
