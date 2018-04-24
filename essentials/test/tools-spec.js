@@ -9,10 +9,11 @@ describe('Tools', function() {
         });
     });
 // asynchronous testing
-    describe('loadWiki', function(done) {
-        it("load Abraham Lincoln's page", function() {
+    describe('loadWiki', function() {
+        this.timeout(5000);
+        it("load Abraham Lincoln's page", function(done) {
             tools.loadWiki({ first: "Abraham", second: "Lincoln" }, function(html) {
-                expect.to.be.ok;
+                expect(html).to.be.ok;
                 done();
             })
         });
